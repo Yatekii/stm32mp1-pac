@@ -34,6 +34,8 @@ extern "C" {
     fn DCMI();
     fn CRYP();
     fn HASH_RNG();
+    fn IPCC_RX0();
+    fn IPCC_TX0();
     fn IPCC_RX1();
     fn IPCC_TX1();
     fn HSEM0();
@@ -149,8 +151,8 @@ pub static __INTERRUPTS: [Vector; 147] = [
     Vector { _reserved: 0 },
     Vector { _reserved: 0 },
     Vector { _reserved: 0 },
-    Vector { _reserved: 0 },
-    Vector { _reserved: 0 },
+    Vector { _handler: IPCC_RX0 },
+    Vector { _handler: IPCC_TX0 },
     Vector { _reserved: 0 },
     Vector { _handler: IPCC_RX1 },
     Vector { _handler: IPCC_TX1 },
@@ -209,6 +211,10 @@ pub enum Interrupt {
     CRYP = 79,
     #[doc = "80 - HASH and RNG"]
     HASH_RNG = 80,
+    #[doc = "100 - IPCC RX1 occupied interrupt"]
+    IPCC_RX0 = 100,
+    #[doc = "101 - IPCC TX1 free interrupt"]
+    IPCC_TX0 = 101,
     #[doc = "103 - IPCC RX1 occupied interrupt"]
     IPCC_RX1 = 103,
     #[doc = "104 - IPCC TX1 free interrupt"]
